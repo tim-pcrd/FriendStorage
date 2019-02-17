@@ -10,6 +10,7 @@ using FriendStorage.Model;
 using FriendStorage.UI.DataProvider;
 using FriendStorage.UI.DataProvider.Lookups;
 using FriendStorage.UI.View;
+using FriendStorage.UI.View.Services;
 using FriendStorage.UI.ViewModel;
 using Prism.Events;
 
@@ -25,6 +26,7 @@ namespace FriendStorage.UI.Startup
             builder.RegisterType<MainViewModel>().AsSelf();
 
             builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
+            builder.RegisterType<MessageDialogService>().As<IMessageDialogService>();
 
             builder.RegisterType<FileDataService>().As<IDataService>();
             builder.RegisterType<FriendLookupProvider>().As<ILookupProvider<Friend>>();

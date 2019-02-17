@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,13 +21,22 @@ namespace FriendStorage.UI.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly MainViewModel _viewModel;
 
         public MainWindow(MainViewModel viewModel)
         {
             InitializeComponent();
-            DataContext = viewModel;
+            _viewModel = viewModel;
+            DataContext = _viewModel;
 
             Loaded += (sender, args) => viewModel.Load();
+            
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            _viewModel.OnClosing(e);
         }
     }
 }

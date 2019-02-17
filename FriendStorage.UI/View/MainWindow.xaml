@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:view="clr-namespace:FriendStorage.UI.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1200" Icon="../Images/FriendStorageIcon.png"
-        WindowStartupLocation="CenterScreen" Background="Black">
+        Title="MainWindow" Height="700" Width="1050" Icon="../Images/FriendStorageIcon.png"
+        WindowStartupLocation="CenterScreen" Background="Black" FontSize="{StaticResource DefaultFontSize}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -24,7 +24,58 @@
             <Bold Foreground="Red">Friend</Bold>Storage
         </TextBlock>
 
-        <view:NavigationView DataContext="{Binding NavigationViewModel}" Grid.Row="2"/>
+        <StackPanel Background="#333333" Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+            <Button Command="{Binding AddFriendCommand}"
+                    ToolTip="Add Friend" Style="{StaticResource AddButtonStyle}" Cursor="Hand"/>
+        </StackPanel>
+
+        <view:NavigationView DataContext="{Binding NavigationViewModel}" Grid.Row="2"
+                             Grid.Column="0"/>
+
+        <GridSplitter Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"
+                      Width="5" Background="DarkRed" HorizontalAlignment="Center"/>
+
+        <TabControl ItemsSource="{Binding FriendEditViewModels}"
+                    SelectedItem="{Binding SelectedFriendEditViewModel, Mode=TwoWay}"
+                    Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Background="Black">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=Content.Friend.IsChanged}"
+                                     Value="True">
+                            <Setter Property="Background" Value="{StaticResource IsChangedBackgroundBrush}"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=Content.Friend.IsValid}"
+                                     Value="False">
+                            <Setter Property="Background" Value="{StaticResource HasErrorBackgroundBrush}"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TabControl.ItemContainerStyle>
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Friend.FirstName,ValidatesOnNotifyDataErrors=False}"/>
+                        <TextBlock Text="{Binding Friend.LastName}" Margin="5 0 20 0"/>
+                        <Button Content="X" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=Window},Path=DataContext.CloseFriendTabCommand}"
+                                CommandParameter="{Binding}"
+                                Width="20" Height="20" FontWeight="Bold" FontSize="12"
+                                Foreground="White" Padding="0" Cursor="Hand"/>
+                    </StackPanel>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <view:FriendEditView/>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+
+        <TextBlock Text="Created by Tim Picard" Margin="10" Grid.Row="3" Grid.ColumnSpan="3" Foreground="LightGray"/>
+
     </Grid>
 
     

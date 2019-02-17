@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FriendStorage.Model;
 using FriendStorage.UI.DataProvider.Lookups;
+using FriendStorage.UI.Events;
 using Prism.Events;
 
 namespace FriendStorage.UI.ViewModel
@@ -20,7 +21,12 @@ namespace FriendStorage.UI.ViewModel
             _eventAggregator = eventAggregator;
             _friendLookupProvider = friendLookupProvider;
             NavigationItems = new ObservableCollection<NavigationItemViewModel>();
+
+            _eventAggregator.GetEvent<FriendSavedEvent>().Subscribe(OnFriendSaved);
+            _eventAggregator.GetEvent<FriendDeletedEvent>().Subscribe(OnFriendDeleted);
         }
+
+      
 
         public ObservableCollection<NavigationItemViewModel> NavigationItems { get; }
 
@@ -31,6 +37,28 @@ namespace FriendStorage.UI.ViewModel
             {
                 NavigationItems.Add(
                     new NavigationItemViewModel(friendLookupItem.Id,friendLookupItem.DisplayValue,_eventAggregator));
+            }
+        }
+
+        private void OnFriendDeleted(int friendId)
+        {
+            var navigationItem = NavigationItems.FirstOrDefault(i => i.FriendId == friendId);
+            if (navigationItem != null)
+            {
+                NavigationItems.Remove(navigationItem);
+            }
+        }
+
+        private void OnFriendSaved(Friend savedFriend)
+        {
+            var navigationItem = NavigationItems.FirstOrDefault(i => i.FriendId == savedFriend.Id);
+            if (navigationItem != null)
+            {
+                navigationItem.DisplayValue = $"{savedFriend.FirstName} {savedFriend.LastName}";
+            }
+            else
+            {
+                Load();
             }
         }
     }

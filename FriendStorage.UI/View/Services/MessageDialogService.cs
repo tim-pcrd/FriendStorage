@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+
+namespace FriendStorage.UI.View.Services
+{
+    public class MessageDialogService : IMessageDialogService
+    {
+        public MessageDialogResult ShowYesNoDialog(string title, string text,
+            MessageDialogResult defaultResult = MessageDialogResult.Yes)
+        {
+            var dialog = new MessageDialog(title, text, defaultResult, MessageDialogResult.Yes, MessageDialogResult.No)
+            {
+                Owner = Application.Current.MainWindow
+            };
+            return dialog.ShowDialog();
+        }
+    }
+}

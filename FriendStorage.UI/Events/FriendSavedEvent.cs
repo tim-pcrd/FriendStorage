@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FriendStorage.Model;
+using Prism.Events;
+
+namespace FriendStorage.UI.Events
+{
+    public class FriendSavedEvent : PubSubEvent<Friend>
+    {
+    }
+}

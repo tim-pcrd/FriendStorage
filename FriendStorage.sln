@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendStorage.DataAccess", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendStorage.Model", "FriendStorage.Model\FriendStorage.Model.csproj", "{CE5CB157-B878-4850-B18B-CE7602AD87C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendStorage.UITests", "FriendStorage.UITests\FriendStorage.UITests.csproj", "{BD8B5F79-1378-49CB-8FD3-7A1659665679}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CE5CB157-B878-4850-B18B-CE7602AD87C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE5CB157-B878-4850-B18B-CE7602AD87C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE5CB157-B878-4850-B18B-CE7602AD87C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD8B5F79-1378-49CB-8FD3-7A1659665679}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD8B5F79-1378-49CB-8FD3-7A1659665679}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD8B5F79-1378-49CB-8FD3-7A1659665679}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD8B5F79-1378-49CB-8FD3-7A1659665679}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
